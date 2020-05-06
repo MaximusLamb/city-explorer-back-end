@@ -10,8 +10,13 @@ const app = express();
 
 app.use(cors());
 
-app.get('/', (req, res) => {
-    res.json({ hello: 'world' });
+app.get('/location', (req, res) => {
+    res.json({ hello: 'location' });
+});
+
+app.get('/weather', (req, res) => {
+    console.log(req);
+    res.json({ hello: 'weather' });
 });
 
 app.listen(PORT, () => console.log(`running on port ${PORT}`));
