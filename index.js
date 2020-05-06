@@ -1,8 +1,8 @@
 const { mungeLocation } = require('./utils.js');
 const locationData = require('./geo.json');
 const dotenv = require('dotenv');
-const app = express();
 const express = require('express');
+const app = express();
 const cors = require('cors');
 const PORT = process.env.PORT || 3001;
 
