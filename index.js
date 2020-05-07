@@ -16,9 +16,9 @@ app.use(cors());
 app.get('/location', async(req, res) => {
     try {
         const data = await request.get(`https://us1.locationiq.com/v1/search.php?key=${process.env.LOCATION_KEY}&q=${req.query.search}&format=json`);
+        const mungedData = mungeLocation(data.body);
     
-        const mungedLocationData = mungeLocation(data.body);
-        res.json(mungedLocationData);
+        res.json(mungedData);
 
     } catch (e) {
         res.json({
@@ -36,8 +36,9 @@ app.get('/location', async(req, res) => {
 app.get('/weather', async(req, res) => {
     try {
         const data = await request.get(`https://api.weatherbit.io/v2.0/forecast/daily?&lat=${req.query.latitude}&lon=${req.query.longitude}&key=${process.env.WEATHER_KEY}`);
-        const mungedWeatherData = mungeWeather(data.body);
-        res.json(mungedWeatherData);
+        const mungedData = mungeWeather(data.body);
+        res.json(mungedData);
+        
         
     } catch (e) {
         res.json({

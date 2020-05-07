@@ -18,16 +18,16 @@ function mungeWeather(weatherData) {
         const thing = weatherData.data.map((weather) => {
 
             return {
-                Weather: weather.weather.description,
-                Time: weather.valid_date,
-                Ozone: weather.ozone
+                forecast: weather.weather.description,
+                time: weather.valid_date,
+                // Ozone: weather.ozone
             };
 
         });
         
         return thing.slice(0, 8);
 
-    } catch (event) {
+    } catch (e) {
         return [{}];
     }
 }
