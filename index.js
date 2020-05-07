@@ -1,4 +1,4 @@
-const { mungeLocation, mungeWeather } = require('./utils.js');
+const { mungeLocation, mungeWeather, mungedTrails } = require('./utils.js');
 const dotenv = require('dotenv');
 const express = require('express');
 const app = express();
@@ -37,8 +37,25 @@ app.get('/weather', async(req, res) => {
     try {
         const data = await request.get(`https://api.weatherbit.io/v2.0/forecast/daily?&lat=${req.query.latitude}&lon=${req.query.longitude}&key=${process.env.WEATHER_KEY}`);
         const mungedData = mungeWeather(data.body);
+        
         res.json(mungedData);
         
+    } catch (e) {
+        res.json({
+            status: 500,
+            responseText: 'Everything is broken and stupid',
+            e
+        });
+
+    }
+});
+
+app.get('/trails', async(req, res) => {
+    try {
+        const data = await request.get(`https://www.hikingproject.com/data/get-trails?lat=${req.query.latitude}&lon=${req.query.longitude}&maxDistance=${req.query.maxDistance}&key=${process.env.TRAILS_KEY}`);
+        const mungedData = mungedTrails(data.body);
+        
+        res.json(mungedData);
         
     } catch (e) {
         res.json({

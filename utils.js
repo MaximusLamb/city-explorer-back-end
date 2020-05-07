@@ -19,8 +19,7 @@ function mungeWeather(weatherData) {
 
             return {
                 forecast: weather.weather.description,
-                time: weather.valid_date,
-                // Ozone: weather.ozone
+                time: weather.valid_date
             };
 
         });
@@ -28,11 +27,27 @@ function mungeWeather(weatherData) {
         return thing.slice(0, 8);
 
     } catch (e) {
-        return [{}];
+        return {};
     }
 }
 
+function mungedTrails(trails) {
+    try {
+        const thing = trails[0];
+
+        return {
+            longitude: thing.long,
+            latitude: thing.lat,
+            maxDistance: thing.maxDistance
+        };
+        
+
+    } catch (e) {
+        return [{}];
+    }
+}
 module.exports = {
     mungeLocation,
-    mungeWeather
+    mungeWeather,
+    mungedTrails
 };
