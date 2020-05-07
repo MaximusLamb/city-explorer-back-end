@@ -13,6 +13,26 @@ function mungeLocation(locationData) {
     }
 }
 
+function mungeWeather(weatherData) {
+    try {
+        const thing = weatherData.data.map((weather) => {
+
+            return {
+                Weather: weather.weather.description,
+                Time: weather.valid_date,
+                Ozone: weather.ozone
+            };
+
+        });
+        
+        return thing.slice(0, 8);
+
+    } catch (event) {
+        return [{}];
+    }
+}
+
 module.exports = {
     mungeLocation,
+    mungeWeather
 };
