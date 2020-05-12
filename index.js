@@ -1,15 +1,15 @@
 const { mungeLocation, mungeWeather, mungedTrails } = require('./utils.js');
+dotenv.config();
 const dotenv = require('dotenv');
 const express = require('express');
-const app = express();
-const cors = require('cors');
 const request = require('superagent');
 
 const PORT = process.env.PORT || 3001;
+const app = express();
+const cors = require('cors');
 
 
 
-dotenv.config();
 
 app.use(cors());
 
@@ -52,7 +52,7 @@ app.get('/weather', async(req, res) => {
 
 app.get('/trails', async(req, res) => {
     try {
-        const data = await request.get(`https://www.hikingproject.com/data/get-trails?lat=${req.query.latitude}&lon=${req.query.longitude}&maxDistance=${req.query.maxDistance}&key=${process.env.TRAILS_KEY}`);
+        const data = await request.get(`https://www.hikingproject.com/data/get-trails?lat=${req.query.latitude}&lon=${req.query.longitude}&key=${process.env.TRAILS_KEY}`);
         const mungedData = mungedTrails(data.body);
         
         res.json(mungedData);

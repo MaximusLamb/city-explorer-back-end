@@ -33,19 +33,26 @@ function mungeWeather(weatherData) {
 
 function mungedTrails(trails) {
     try {
-        const thing = trails[0];
-
-        return {
-            longitude: thing.long,
-            latitude: thing.lat,
-            maxDistance: thing.maxDistance
-        };
-        
-
+       
+        const trailData = trails.trails.map(hike => {
+            return { 
+                name: hike.name,
+                location: hike.location,
+                length: hike.length,
+                stars: hike.stars,
+                star_votes: hike.starVotes,
+                summary: hike.summary,
+                trail_url: hike.url,
+                conditions: hike.conditionStatus,
+                condition_date: hike.conditionDate.split(' ')[0],
+                condition_time: hike.conditionDate.split(' ')[1]
+            };
+        });
+        return trailData.slice(0, 10);
     } catch (e) {
         return [{}];
     }
-}
+} 
 module.exports = {
     mungeLocation,
     mungeWeather,
