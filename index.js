@@ -1,6 +1,6 @@
 const { mungeLocation, mungeWeather, mungedTrails } = require('./utils.js');
-dotenv.config();
 const dotenv = require('dotenv');
+dotenv.config();
 const express = require('express');
 const request = require('superagent');
 
